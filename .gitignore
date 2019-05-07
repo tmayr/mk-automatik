@@ -1,2 +1,4 @@
 __pycache__
 screenshot.jpg
+.DS_Store
+failed-dataset
