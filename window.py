@@ -26,12 +26,12 @@ class Window:
 
     def take_screenshot(self):
         os.system(
-            'screenshot -o jpg -f "screenshot.jpg" "{}" >/dev/null'.format(self.app)
+            'screenshot -o jpg -f "screenshot.jpg" "{}" > /dev/null'.format(self.app)
         )
 
     def press_sequence(self, sequence):
-        for key in sequence:
-            pyautogui.press(key)
-            sleep(1)
+        # for key in sequence:
+        #     pyautogui.press(key)
+        #     sleep(1)
         return
 

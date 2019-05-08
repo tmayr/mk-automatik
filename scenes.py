@@ -1,5 +1,5 @@
 import cv2
-
+import numpy
 from skimage import measure
 
 WIDTH = 1920
@@ -59,26 +59,32 @@ SCENES = {
 class Scenes:
     @staticmethod
     def load_image(image_name):
-        screenshot = cv2.imread("./{}".format(image_name))
-        screenshot_bw = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
-        return screenshot_bw
+        return cv2.imread("./{}".format(image_name))
 
     @staticmethod
     def guess_scene():
         screenshot = Scenes.load_image("screenshot.jpg")
+        imhsv = screenshot
+        (h, s, v) = cv2.split(imhsv)
+        
+        # stack = numpy.hstack([h,s,v])
+        # cv2.imshow("stack hsv", cv2.resize(stack, (480*3, 281)))
+        # cv2.waitKey(0)
+        # cv2.imshow("test",screenshot)
+        # cv2.waitKey(0)
 
         for scene in SCENES:
             scene_screenshot = Scenes.load_image("./dataset/{}.jpg".format(scene))
+            imhsv2 = scene_screenshot
+
+            (h2, s2, v2) = cv2.split(imhsv2)
 
             range_x = SCENES[scene]["range_x"]
             range_y = SCENES[scene]["range_y"]
 
-            # cv2.imshow("test", scene_screenshot_bw[range_y, range_x])
-            # cv2.waitKey(0)
-
             (score, diff) = measure.compare_ssim(
-                screenshot[range_y, range_x],
-                scene_screenshot[range_y, range_x],
+                s[range_y, range_x],
+                s2[range_y, range_x],
                 full=True,
             )
             SCENES[scene]["score"] = score

@@ -16,7 +16,9 @@ APP_NAME = "PS4 Remote Play"
 def main(window):
     window.take_screenshot()
     scene = Scenes.guess_scene()
-
+    print("found scene {}".format(scene))
+    print(SCENES[scene])
+    
     if SCENES[scene]["score"] > CONFIDENCE_TRESHOLD:
         print("found scene {}".format(scene))
         print(SCENES[scene])
@@ -41,7 +43,8 @@ def main(window):
 
 if __name__ == "__main__":
     window = Window(APP_NAME)
-    window.focus_window()
+    # window.focus_window()
+    # window.position_window()
 
     while True:
         main(window)
