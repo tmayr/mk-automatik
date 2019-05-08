@@ -1,5 +1,6 @@
 import os
 import osascript
+import pyautogui
 
 from time import sleep
 from screenshot import screencapture
@@ -30,9 +31,7 @@ class Window:
 
     def press_sequence(self, sequence):
         for key in sequence:
-            osascript.run(
-                'tell application "System Events" to keystroke "{}"'.format(key)
-            )
+            pyautogui.press(key)
             sleep(1)
         return
 
